@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "name": "El signo de los cuatro",
+        "authorId": 1
+    },
+    {
+        "id": 2,
+        "name": "Estudio en escarlata",
+        "authorId": 1
+    },
+    {
+        "id": 3,
+        "name": "Ficciones",
+        "authorId": 3
+    },
+    {
+        "id": 4,
+        "name": "Las venas abiertas de América Latina",
+        "authorId": 2
+    }
+]
