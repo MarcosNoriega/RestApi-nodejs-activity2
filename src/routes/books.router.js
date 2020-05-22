@@ -17,8 +17,6 @@ router.get('/books', (req, res) => {
 
         book['author'] = author;
 
-        console.log(book);
-
     });
 
     res.send(books);
