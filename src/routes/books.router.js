@@ -19,7 +19,24 @@ router.get('/books', (req, res) => {
 
     });
 
-    res.send(books);
+    res.json(books);
+});
+
+router.post('/book/create', (req, res) => {
+    const {name, authorId} = req.body;
+
+    if (name && authorId) {
+        let book = req.body;
+        book['id'] = books.length + 1;
+
+        books.push(book);
+
+        res.json({message: "book saved success"});
+    }
+    else 
+    {
+        res.status(400).json({message: "bad request"});
+    }
 });
 
 module.exports = router;
