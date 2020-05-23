@@ -26,6 +26,17 @@ router.post('/book/create', (req, res) => {
     const {name, authorId} = req.body;
 
     if (name && authorId) {
+
+        let author = _.find(authors, (author) => {
+            if (author.id == authorId) {
+                return true;
+            }
+        });
+
+        if (!author) {
+            return res.status(404).json({message: "author not found. you cannot save this book. first you must save the author"});
+        }
+
         let book = req.body;
         book['id'] = books.length + 1;
 
