@@ -1,5 +1,6 @@
 const {Router} = require('express');
 const router = Router();
+const _ = require('lodash');
 
 const authors = require('../data/authors.json');
 
@@ -24,6 +25,29 @@ router.post('/author/create', (req, res) => {
     }
 
     
+
+});
+
+router.put('/author/update/:id', (req, res) => {
+    const {id} = req.params;
+    const {name, lastname} = req.body;
+
+    if (name && lastname) {
+        _.each(authors, (author) => {
+            if (author.id == id) {
+                author.name = name;
+                author.lastname = lastname;
+            }
+        });
+    
+        res.json({message: "author updated success"});
+    }
+    else 
+    {
+        res.status(400).json('bad request');
+    }
+
+   
 
 });
 
