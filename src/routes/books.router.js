@@ -42,7 +42,7 @@ router.post('/book/create', (req, res) => {
 
         books.push(book);
 
-        res.json({message: "book saved success"});
+        res.json({message: "book saved successfy"});
     }
     else 
     {
@@ -74,12 +74,22 @@ router.put('/book/update/:id', (req, res) => {
             }
         });
 
-        res.json({message: "book updated success"});
+        res.json({message: "book updated successfy"});
     }
     else
     {
         res.status(400).json({message: 'bad request'});
     }
+});
+
+router.delete('/book/delete/:id', (req, res) => {
+    const {id} = req.params;
+    
+    _.remove(books, book => {
+        if (book.id == id) return true;
+    });
+
+    res.json({message: 'book deleted successfy'})
 });
 
 module.exports = router;
