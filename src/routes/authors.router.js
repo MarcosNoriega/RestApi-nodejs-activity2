@@ -32,16 +32,20 @@ router.post('/author/create', (req, res) => {
 router.put('/author/update/:id', (req, res) => {
     const {id} = req.params;
     const {name, lastname} = req.body;
+    let updated = false;
 
     if (name && lastname) {
         _.each(authors, author => {
             if (author.id == id) {
                 author.name = name;
                 author.lastname = lastname;
+                updated = true
             }
         });
+
+        if (!updated) return res.status(404).json({message: 'author not found'});
     
-        res.json({message: "author updated success"});
+        return res.json({message: "author updated success"});
     }
     else 
     {
@@ -65,11 +69,13 @@ router.delete('/author/delete/:id', (req, res) => {
         return res.status(409).json({message: 'you cannot remove this author. integrity problem in database'});
     }
 
-    _.remove(authors, author => {
+    let author = _.remove(authors, author => {
         if (author.id == id) {
             return true;
         }
     });
+
+    if (author.length == 0) return res.status(404).json({message: 'author not found'});
 
     return res.json({message: 'author removed successfy'});
 });

@@ -53,6 +53,7 @@ router.post('/book/create', (req, res) => {
 router.put('/book/update/:id', (req, res) => {
     const {id} = req.params;
     const {name, authorId} = req.body;
+    let updated = false;
 
     if (name && authorId) {
 
@@ -70,9 +71,11 @@ router.put('/book/update/:id', (req, res) => {
             if (book.id == id) {
                 book.name = name;
                 book.authorId = authorId;
-
+                updated = true;
             }
         });
+
+        if (!updated) return res.status(404).json({message: 'book not found'});
 
         res.json({message: "book updated successfy"});
     }
@@ -85,11 +88,13 @@ router.put('/book/update/:id', (req, res) => {
 router.delete('/book/delete/:id', (req, res) => {
     const {id} = req.params;
     
-    _.remove(books, book => {
+    let book = _.remove(books, book => {
         if (book.id == id) return true;
     });
+    
+    if (book.length == 0) return res.status(404).json({message: 'book not found'});
 
-    res.json({message: 'book deleted successfy'})
+    return res.json({message: 'book deleted successfy'});
 });
 
 module.exports = router;
